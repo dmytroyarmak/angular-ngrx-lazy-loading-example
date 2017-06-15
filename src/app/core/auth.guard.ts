@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from "./auth.service";
+import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private authService: AuthService,
+    private store: Store<any>,
     private router: Router
   ) {}
 
   canActivate(){
-    if (this.authService.isLoggedIn) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
+    return this.store
+      .select('core', 'auth', 'isLoggedIn')
+      .do((isLoggedIn) => {
+        if (!isLoggedIn) {
+          this.router.navigate(['/login']);
+        }
+      });
   }
 }

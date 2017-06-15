@@ -10,6 +10,7 @@ import { NavigationComponent } from './core/navigation.component';
 import { LoginComponent } from './core/login.component';
 import { AuthGuard } from "./core/auth.guard";
 import { AuthService } from "./core/auth.service";
+import { coreReducer } from "./core/core.reducer";
 
 import { CounterComponent } from './counter/counter.component';
 import { counterReducer } from './counter/counter.reducer';
@@ -58,6 +59,7 @@ const appRoutes: Route[] = [
     FormsModule,
     RouterModule.forRoot(appRoutes),
     StoreModule.provideStore({
+      core: coreReducer,
       counter: counterReducer,
       todos: todosReducer
     })

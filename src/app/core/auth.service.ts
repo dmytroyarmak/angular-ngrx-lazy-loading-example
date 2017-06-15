@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class AuthService {
-  isLoggedIn = false;
-  username = null;
-
-  constructor(
-    private router: Router
-  ){}
-
   logIn(username, password) {
-    this.isLoggedIn = true;
-    this.username = username;
-    this.router.navigate(['/']);
+    if (username === 'admin' && password === 'admin') {
+      return Observable.of({username}).delay(500);
+    } else {
+      return Observable.throw('Something went wrong. Please, try again.');
+    }
   }
 }
