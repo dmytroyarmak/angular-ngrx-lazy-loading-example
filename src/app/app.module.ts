@@ -3,14 +3,16 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { CounterComponent } from './counter.component';
-import { TodosComponent } from './todos.component';
-import { LayoutComponent } from './layout.component';
-import { NavigationComponent } from './navigation.component';
-import { LoginComponent } from './login.component';
-import { AuthGuard } from "./auth.guard";
-import { AuthService } from "./auth.service";
+import { RootComponent } from './core/root.component';
+import { LayoutComponent } from './core/layout.component';
+import { NavigationComponent } from './core/navigation.component';
+import { LoginComponent } from './core/login.component';
+import { AuthGuard } from "./core/auth.guard";
+import { AuthService } from "./core/auth.service";
+
+import { CounterComponent } from './counter/counter.component';
+
+import { TodosComponent } from './todos/todos.component';
 
 const appRoutes: Route[] = [
   {
@@ -41,7 +43,7 @@ const appRoutes: Route[] = [
 
 @NgModule({
   declarations: [
-    AppComponent,
+    RootComponent,
     CounterComponent,
     TodosComponent,
     NavigationComponent,
@@ -57,6 +59,8 @@ const appRoutes: Route[] = [
     AuthGuard,
     AuthService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    RootComponent
+  ]
 })
 export class AppModule {}
