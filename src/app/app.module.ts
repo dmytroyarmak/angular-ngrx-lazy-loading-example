@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 
 import { RootComponent } from './core/root.component';
 import { LayoutComponent } from './core/layout.component';
@@ -11,6 +12,7 @@ import { AuthGuard } from "./core/auth.guard";
 import { AuthService } from "./core/auth.service";
 
 import { CounterComponent } from './counter/counter.component';
+import { counterReducer } from './counter/counter.reducer';
 
 import { TodosComponent } from './todos/todos.component';
 
@@ -53,7 +55,8 @@ const appRoutes: Route[] = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    StoreModule.provideStore({ counter: counterReducer })
   ],
   providers: [
     AuthGuard,

@@ -1,23 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { DECREMENT, INCREMENT } from './counter.reducer';
 
 @Component({
   selector: 'dy-counter',
   template: `
-    <button (click)="decrease()"> - </button>
-    {{ value }}
-    <button (click)="increase()"> + </button>
+    <button (click)="decrement()"> - </button>
+    {{ counter | async }}
+    <button (click)="increment()"> + </button>
   `
 })
-export class CounterComponent {
-  value = 0;
+export class CounterComponent implements OnInit {
+  counter;
 
-  constructor() { }
+  constructor(
+    private store: Store<any>
+  ) {}
 
-  decrease() {
-    this.value -= 1;
+  ngOnInit() {
+    this.counter = this.store.select('counter');
   }
 
-  increase() {
-    this.value += 1;
+  decrement() {
+    this.store.dispatch({ type: DECREMENT})
+  }
+
+  increment() {
+    this.store.dispatch({ type: INCREMENT });
   }
 }
