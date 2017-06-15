@@ -3,11 +3,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'dy-counter',
   template: `
-    <div>
-      <button (click)="decrease()"> - </button>
-      {{ value }}
-      <button (click)="increase()"> + </button>
-    </div>
+    <button (click)="decrease()"> - </button>
+    {{ value }}
+    <button (click)="increase()"> + </button>
   `
 })
 export class CounterComponent {
