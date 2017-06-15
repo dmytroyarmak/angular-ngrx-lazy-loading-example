@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { ADD, TOGGLE_COMPLETION, REMOVE } from './todos.reducer';
 
 @Component({
   selector: 'dy-todos',
@@ -7,7 +9,7 @@ import { Component } from '@angular/core';
       <input name="newTodoTitle" [(ngModel)]="newTodoTitle" />
     </form>
     <ul>
-      <li *ngFor="let todo of todos">
+      <li *ngFor="let todo of todos | async">
         <span [class.completed]="todo.completed">
           {{ todo.title }}
         </span>
@@ -29,39 +31,40 @@ import { Component } from '@angular/core';
     }
   `]
 })
-export class TodosComponent {
-  todos = [];
+export class TodosComponent implements OnInit {
+  todos;
   newTodoTitle = '';
-  constructor() { }
+
+  constructor(
+    private store: Store<any>
+  ) { }
+
+  ngOnInit() {
+    this.todos = this.store.select('todos');
+  }
 
   addTodo() {
-    this.todos = [
-      ...this.todos,
-      {
+    this.store.dispatch({
+      type: ADD,
+      payload: {
         title: this.newTodoTitle,
         completed: false
       }
-    ];
+    })
     this.newTodoTitle = '';
   }
 
   toggleCompletion(todo) {
-    const todoIndex = this.todos.indexOf(todo);
-    this.todos = [
-      ...this.todos.slice(0, todoIndex),
-      {
-        title: todo.title,
-        completed: !todo.completed
-      },
-      ...this.todos.slice(todoIndex + 1)
-    ];
+    this.store.dispatch({
+      type: TOGGLE_COMPLETION,
+      payload: todo
+    })
   }
 
   remove(todo) {
-    const todoIndex = this.todos.indexOf(todo);
-    this.todos = [
-      ...this.todos.slice(0, todoIndex),
-      ...this.todos.slice(todoIndex + 1)
-    ];
+    this.store.dispatch({
+      type: REMOVE,
+      payload: todo
+    })
   }
 }

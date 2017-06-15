@@ -15,6 +15,7 @@ import { CounterComponent } from './counter/counter.component';
 import { counterReducer } from './counter/counter.reducer';
 
 import { TodosComponent } from './todos/todos.component';
+import { todosReducer } from './todos/todos.reducer';
 
 const appRoutes: Route[] = [
   {
@@ -56,7 +57,10 @@ const appRoutes: Route[] = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    StoreModule.provideStore({ counter: counterReducer })
+    StoreModule.provideStore({
+      counter: counterReducer,
+      todos: todosReducer
+    })
   ],
   providers: [
     AuthGuard,
