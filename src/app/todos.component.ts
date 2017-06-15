@@ -35,19 +35,33 @@ export class TodosComponent {
   constructor() { }
 
   addTodo() {
-    this.todos.push({
-      title: this.newTodoTitle,
-      completed: false
-    });
+    this.todos = [
+      ...this.todos,
+      {
+        title: this.newTodoTitle,
+        completed: false
+      }
+    ];
     this.newTodoTitle = '';
   }
 
   toggleCompletion(todo) {
-    todo.completed = !todo.completed;
+    const todoIndex = this.todos.indexOf(todo);
+    this.todos = [
+      ...this.todos.slice(0, todoIndex),
+      {
+        title: todo.title,
+        completed: !todo.completed
+      },
+      ...this.todos.slice(todoIndex + 1)
+    ];
   }
 
   remove(todo) {
     const todoIndex = this.todos.indexOf(todo);
-    this.todos.splice(todoIndex, 1);
+    this.todos = [
+      ...this.todos.slice(0, todoIndex),
+      ...this.todos.slice(todoIndex + 1)
+    ];
   }
 }
