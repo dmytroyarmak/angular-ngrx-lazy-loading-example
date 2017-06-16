@@ -10,10 +10,16 @@ import { NavigationComponent } from './navigation.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 
+import { StoreModule } from '@ngrx/store';
+import { coreReducer } from 'app/core/core.reducer';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    StoreModule.provideStore({
+      core: coreReducer
+    }),
     CoreRoutingModule
   ],
   declarations: [
