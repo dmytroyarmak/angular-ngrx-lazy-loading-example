@@ -1,10 +1,14 @@
 import { Action } from '@ngrx/store';
 
+import { LOGOUT } from '../core/auth.reducer';
+
 export const ADD = 'ADD';
 export const TOGGLE_COMPLETION = 'TOGGLE_COMPLETION';
 export const REMOVE = 'REMOVE';
 
-export function todosReducer(state = [], action: Action) {
+export const initialState = [];
+
+export function todosReducer(state = initialState, action: Action) {
   switch (action.type) {
     case ADD:
       return [
@@ -29,6 +33,9 @@ export function todosReducer(state = [], action: Action) {
         ...state.slice(0, indexToRemove),
         ...state.slice(indexToRemove + 1)
       ];
+
+    case LOGOUT:
+      return initialState;
 
     default:
       return state;

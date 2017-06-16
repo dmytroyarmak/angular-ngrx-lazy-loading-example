@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGOUT = 'LOGOUT';
 
 export const initialState = {
   isInProgress: false,
@@ -34,6 +35,9 @@ export function authReducer(state = initialState, action: Action) {
         isInProgress: false,
         error: action.payload
       };
+
+    case LOGOUT:
+      return initialState;
 
     default:
       return state;
