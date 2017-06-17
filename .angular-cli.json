@@ -19,7 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "dy",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "levi-nine-material-theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

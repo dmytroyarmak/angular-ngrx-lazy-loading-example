@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'dy-root',
   template: `
-    <pre>angular-ngrx-lazy-loading-example</pre>
-    <hr/>
+    <dy-toolbar></dy-toolbar>
     <router-outlet></router-outlet>
   `
 })

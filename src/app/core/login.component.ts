@@ -7,27 +7,26 @@ import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './auth.reducer';
 @Component({
   selector: 'dy-login',
   template: `
-    <div>{{ error | async }}</div>
-
-    <div *ngIf="isInProgress | async; else: loginForm" >
-      Login in progress...
-    </div>
-
-    <ng-template #loginForm>
-      <form (submit)="onSubmit()">
-        <label>
-          <div>Username:</div>
-          <input type="text" name="username" [(ngModel)]="username"/>
-        </label>
-        <label>
-          <div>Password:</div>
-          <input type="password" name="password" [(ngModel)]="password"/>
-        </label>
-        <div>
-          <button type="submit">Log in</button>
+    <md-card>
+      <md-card-subtitle>{{ error | async }}</md-card-subtitle>
+      <md-card-content>
+        <div *ngIf="isInProgress | async; else loginForm" >
+          Login in progress...
         </div>
-      </form>
-    </ng-template>
+
+        <ng-template #loginForm>
+          <form (submit)="onSubmit()" fxLayout="column">
+            <md-input-container>
+              <input mdInput placeholder="Username" name="username" [(ngModel)]="username">
+            </md-input-container>
+            <md-input-container>
+              <input mdInput placeholder="Password" name="password" [(ngModel)]="password">
+            </md-input-container>
+            <button md-raised-button type="submit">Log in</button>
+          </form>
+        </ng-template>
+      </md-card-content>
+    </md-card>
   `
 })
 export class LoginComponent implements OnInit {
@@ -51,7 +50,7 @@ export class LoginComponent implements OnInit {
     this.store.dispatch({ type: LOGIN });
     this.authService
       .logIn(this.username, this.password)
-      .subscribe(({username}) => {
+      .subscribe(({ username }) => {
         this.store.dispatch({
           type: LOGIN_SUCCESS,
           payload: username

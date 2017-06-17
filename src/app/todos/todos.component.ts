@@ -7,32 +7,26 @@ import { ADD, TOGGLE_COMPLETION, REMOVE, TodosState } from './todos.reducer';
 @Component({
   selector: 'dy-todos',
   template: `
-    <form (submit)="addTodo()">
-      <input name="newTodoTitle" [(ngModel)]="newTodoTitle" />
-      <button type="submit">Add</button>
-    </form>
-    <ul>
-      <li *ngFor="let todo of todos$ | async">
-        <span [class.completed]="todo.completed">
-          {{ todo.title }}
-        </span>
-        <button class="icon-button" type="button" (click)="toggleCompletion(todo)">✅</button>
-        <button class="icon-button" type="button" (click)="remove(todo)">🚮</button>
-      </li>
-    </ul>
-  `,
-  styles: [`
-    .completed {
-      text-decoration: line-through;
-    }
-
-    .icon-button {
-      -webkit-appearance: none;
-      border: 0;
-      background: none;
-      padding: 0;
-    }
-  `]
+    <md-card>
+      <form (submit)="addTodo()" fxLayout="row">
+        <md-input-container fxFlex="1 0 auto">
+          <input mdInput placeholder="What are you going to do?" name="newTodoTitle" [(ngModel)]="newTodoTitle" />
+        </md-input-container>
+        <button md-mini-fab><md-icon>add</md-icon></button>
+      </form>
+      <md-list>
+        <md-list-item *ngFor="let todo of todos$ | async">
+          <span md-line [style.text-decoration]="todo.completed ? 'line-through' : 'none'">
+            {{ todo.title }}
+          </span>
+          <button md-icon-button type="button" (click)="toggleCompletion(todo)">
+            <md-icon>{{ todo.completed ? 'turned_in' : 'turned_in_not' }}</md-icon>
+          </button>
+          <button md-icon-button type="button" (click)="remove(todo)"><md-icon>delete</md-icon></button>
+        </md-list-item>
+      </md-list>
+    </md-card>
+  `
 })
 export class TodosComponent implements OnInit {
   todos$: Observable<TodosState>;
