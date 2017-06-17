@@ -9,14 +9,15 @@ import { ADD, TOGGLE_COMPLETION, REMOVE, TodosState } from './todos.reducer';
   template: `
     <form (submit)="addTodo()">
       <input name="newTodoTitle" [(ngModel)]="newTodoTitle" />
+      <button type="submit">Add</button>
     </form>
     <ul>
-      <li *ngFor="let todo of todos | async">
+      <li *ngFor="let todo of todos$ | async">
         <span [class.completed]="todo.completed">
           {{ todo.title }}
         </span>
-        <button (click)="toggleCompletion(todo)">✅</button>
-        <button (click)="remove(todo)">🚮</button>
+        <button class="icon-button" type="button" (click)="toggleCompletion(todo)">✅</button>
+        <button class="icon-button" type="button" (click)="remove(todo)">🚮</button>
       </li>
     </ul>
   `,
@@ -25,7 +26,7 @@ import { ADD, TOGGLE_COMPLETION, REMOVE, TodosState } from './todos.reducer';
       text-decoration: line-through;
     }
 
-    button {
+    .icon-button {
       -webkit-appearance: none;
       border: 0;
       background: none;
@@ -34,7 +35,7 @@ import { ADD, TOGGLE_COMPLETION, REMOVE, TodosState } from './todos.reducer';
   `]
 })
 export class TodosComponent implements OnInit {
-  todos: Observable<TodosState>;
+  todos$: Observable<TodosState>;
   newTodoTitle = '';
 
   constructor(
@@ -42,18 +43,20 @@ export class TodosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.todos = this.store.select('todos');
+    this.todos$ = this.store.select('todos');
   }
 
   addTodo() {
-    this.store.dispatch({
-      type: ADD,
-      payload: {
-        title: this.newTodoTitle,
-        completed: false
-      }
-    });
-    this.newTodoTitle = '';
+    if (this.newTodoTitle) {
+      this.store.dispatch({
+        type: ADD,
+        payload: {
+          title: this.newTodoTitle,
+          completed: false
+        }
+      });
+      this.newTodoTitle = '';
+    }
   }
 
   toggleCompletion(todo) {

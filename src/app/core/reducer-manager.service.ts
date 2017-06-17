@@ -3,14 +3,10 @@ import { _INITIAL_REDUCER, combineReducers, Store } from '@ngrx/store';
 
 @Injectable()
 export class ReducerManager {
-  private reducers;
-
   constructor(
     private store: Store<any>,
-    @Inject(_INITIAL_REDUCER) initialReducers
-  ) {
-    this.reducers = initialReducers;
-  }
+    @Inject(_INITIAL_REDUCER) private reducers
+  ) {}
 
   addReducer(key, reducer) {
     this.reducers = {
