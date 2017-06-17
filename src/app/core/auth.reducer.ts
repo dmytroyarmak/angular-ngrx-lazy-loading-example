@@ -5,7 +5,14 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
 
-export const initialState = {
+export interface AuthState {
+  isInProgress: boolean;
+  isLoggedIn: boolean;
+  username: string;
+  error: string;
+}
+
+export const initialState: AuthState = {
   isInProgress: false,
   isLoggedIn: false,
   username: null,

@@ -1,5 +1,9 @@
 import { combineReducers } from '@ngrx/store';
-import { authReducer } from './auth.reducer';
+import { authReducer, AuthState } from './auth.reducer';
+
+export interface CoreState {
+  auth: AuthState;
+}
 
 const combinedCoreReducers = combineReducers({
   auth: authReducer

@@ -11,8 +11,12 @@ import { NavigationComponent } from './navigation.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { ReducerManager } from './reducer-manager.service';
-import { coreReducer } from './core.reducer';
+import { coreReducer, CoreState } from './core.reducer';
 import { ToolbarComponent } from './toolbar.component';
+
+export interface CoreAppState {
+  core: CoreState
+}
 
 @NgModule({
   imports: [

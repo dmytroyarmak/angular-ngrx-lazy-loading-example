@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LOGOUT } from './auth.reducer';
+import { CoreAppState } from './core.module';
 
 @Component({
   selector: 'dy-toolbar',
@@ -25,12 +26,12 @@ export class ToolbarComponent implements OnInit {
   isLoggedIn$;
 
   constructor(
-    private store: Store<any>,
+    private store: Store<CoreAppState>,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.isLoggedIn$ = this.store.select('core', 'auth', 'isLoggedIn');
+    this.isLoggedIn$ = this.store.select(state => state.core.auth.isLoggedIn);
   }
 
   onClickLogOut() {

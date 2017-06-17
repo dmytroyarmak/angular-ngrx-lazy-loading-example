@@ -5,7 +5,9 @@ import { LOGOUT } from '../core/auth.reducer';
 export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
 
-export const initialState = 0;
+export type CounterState = number;
+
+export const initialState: CounterState = 0;
 
 export function counterReducer(state = initialState, action: Action) {
   switch (action.type) {

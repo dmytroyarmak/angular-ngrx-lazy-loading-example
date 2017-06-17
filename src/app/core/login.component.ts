@@ -3,14 +3,15 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthService } from './auth.service';
 import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './auth.reducer';
+import { CoreAppState } from './core.module';
 
 @Component({
   selector: 'dy-login',
   template: `
     <md-card>
-      <md-card-subtitle>{{ error | async }}</md-card-subtitle>
+      <md-card-subtitle>{{ error$ | async }}</md-card-subtitle>
       <md-card-content>
-        <div *ngIf="isInProgress | async; else loginForm" >
+        <div *ngIf="isInProgress$ | async; else loginForm">
           Login in progress...
         </div>
 
@@ -30,20 +31,20 @@ import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './auth.reducer';
   `
 })
 export class LoginComponent implements OnInit {
-  error;
-  isInProgress;
+  error$;
+  isInProgress$;
   username = '';
   password = '';
 
   constructor(
     private authService: AuthService,
-    private store: Store<any>,
+    private store: Store<CoreAppState>,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.error = this.store.select('core', 'auth', 'error');
-    this.isInProgress = this.store.select('core', 'auth', 'isInProgress');
+    this.error$ = this.store.select(state => state.core.auth.error);
+    this.isInProgress$ = this.store.select(state => state.core.auth.isInProgress);
   }
 
   onSubmit() {
