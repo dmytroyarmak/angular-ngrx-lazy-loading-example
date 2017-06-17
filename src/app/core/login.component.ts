@@ -17,7 +17,7 @@ import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './auth.reducer';
         <ng-template #loginForm>
           <form (submit)="onSubmit()" fxLayout="column">
             <md-input-container>
-              <input mdInput placeholder="Username" name="username" [(ngModel)]="username">
+              <input mdInput autofocus placeholder="Username" name="username" [(ngModel)]="username">
             </md-input-container>
             <md-input-container>
               <input mdInput placeholder="Password" name="password" [(ngModel)]="password">
