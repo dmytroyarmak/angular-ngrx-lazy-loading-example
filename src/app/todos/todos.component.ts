@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from "@ngrx/store";
-import { ADD, TOGGLE_COMPLETION, REMOVE } from './todos.reducer';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+
+import { ADD, TOGGLE_COMPLETION, REMOVE, TodosState } from './todos.reducer';
 
 @Component({
   selector: 'dy-todos',
@@ -32,11 +34,11 @@ import { ADD, TOGGLE_COMPLETION, REMOVE } from './todos.reducer';
   `]
 })
 export class TodosComponent implements OnInit {
-  todos;
+  todos: Observable<TodosState>;
   newTodoTitle = '';
 
   constructor(
-    private store: Store<any>
+    private store: Store<{todos: TodosState}>
   ) { }
 
   ngOnInit() {
@@ -50,7 +52,7 @@ export class TodosComponent implements OnInit {
         title: this.newTodoTitle,
         completed: false
       }
-    })
+    });
     this.newTodoTitle = '';
   }
 

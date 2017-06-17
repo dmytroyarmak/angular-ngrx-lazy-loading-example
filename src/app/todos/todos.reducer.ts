@@ -6,7 +6,13 @@ export const ADD = 'ADD';
 export const TOGGLE_COMPLETION = 'TOGGLE_COMPLETION';
 export const REMOVE = 'REMOVE';
 
-export const initialState = [];
+export interface Todo {
+  title: string;
+  completed: boolean;
+}
+export type TodosState = Todo[]
+
+export const initialState: TodosState = [];
 
 export function todosReducer(state = initialState, action: Action) {
   switch (action.type) {

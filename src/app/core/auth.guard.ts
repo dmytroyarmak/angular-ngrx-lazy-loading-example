@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(){
+  canActivate() {
     return this.store
       .select('core', 'auth', 'isLoggedIn')
       .do((isLoggedIn) => {

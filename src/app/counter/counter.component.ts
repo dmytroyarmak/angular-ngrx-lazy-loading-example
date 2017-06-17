@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import { DECREMENT, INCREMENT } from './counter.reducer';
 
 @Component({
@@ -22,7 +22,7 @@ export class CounterComponent implements OnInit {
   }
 
   decrement() {
-    this.store.dispatch({ type: DECREMENT})
+    this.store.dispatch({ type: DECREMENT })
   }
 
   increment() {

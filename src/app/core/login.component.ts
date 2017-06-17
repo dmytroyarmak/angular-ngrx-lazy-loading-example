@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthService } from "./auth.service";
+import { AuthService } from './auth.service';
 import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './auth.reducer';
 
 @Component({
