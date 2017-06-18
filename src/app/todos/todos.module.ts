@@ -6,6 +6,8 @@ import { TodosRoutingModule } from './todos-routing.module';
 import { TodosComponent } from './todos.component';
 import { todosReducer, TodosState } from './todos.reducer';
 import { CoreAppState } from '../core/core.module';
+import { EffectsModule } from '@ngrx/effects';
+import { TodosEffects } from './todos.effects';
 
 export interface TodosAppState extends CoreAppState {
   todos: TodosState;
@@ -14,6 +16,7 @@ export interface TodosAppState extends CoreAppState {
 @NgModule({
   imports: [
     SharedModule,
+    EffectsModule.run(TodosEffects),
     TodosRoutingModule
   ],
   declarations: [

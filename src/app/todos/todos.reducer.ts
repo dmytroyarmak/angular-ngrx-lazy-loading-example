@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { LOGOUT } from '../core/auth.reducer';
 
 export const ADD = 'ADD';
+export const ADD_SUCCESS = 'ADD_SUCCESS';
 export const TOGGLE_COMPLETION = 'TOGGLE_COMPLETION';
 export const REMOVE = 'REMOVE';
 
@@ -16,10 +17,10 @@ export const initialState: TodosState = [];
 
 export function todosReducer(state = initialState, action: Action) {
   switch (action.type) {
-    case ADD:
+    case ADD_SUCCESS:
       return [
-        ...state,
-        action.payload
+        action.payload,
+        ...state
       ];
 
     case TOGGLE_COMPLETION:

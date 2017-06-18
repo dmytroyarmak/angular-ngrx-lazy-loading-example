@@ -42,16 +42,14 @@ export class TodosComponent implements OnInit {
   }
 
   addTodo() {
-    if (this.newTodoTitle) {
-      this.store.dispatch({
-        type: ADD,
-        payload: {
-          title: this.newTodoTitle,
-          completed: false
-        }
-      });
-      this.newTodoTitle = '';
-    }
+    this.store.dispatch({
+      type: ADD,
+      payload: {
+        title: this.newTodoTitle,
+        completed: false
+      }
+    });
+    this.newTodoTitle = '';
   }
 
   toggleCompletion(todo) {
