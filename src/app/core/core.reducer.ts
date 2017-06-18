@@ -1,5 +1,7 @@
 import { combineReducers } from '@ngrx/store';
-import { authReducer, AuthState } from './auth.reducer';
+import { AuthAction, authReducer, AuthState } from './auth.reducer';
+
+export type CoreAction = AuthAction;
 
 export interface CoreState {
   auth: AuthState;

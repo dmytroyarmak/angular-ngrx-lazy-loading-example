@@ -12,7 +12,6 @@ import { LayoutComponent } from './layout.component';
 import { NavigationComponent } from './navigation.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-import { ReducerManager } from './reducer-manager.service';
 import { coreReducer, CoreState } from './core.reducer';
 import { ToolbarComponent } from './toolbar.component';
 import { AuthEffects } from './auth.effects';
@@ -24,11 +23,11 @@ export interface CoreAppState {
 @NgModule({
   imports: [
     BrowserAnimationsModule,
-    StoreModule.provideStore({
+    StoreModule.forRoot({
       core: coreReducer
     }),
-    StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    EffectsModule.run(AuthEffects),
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([AuthEffects]),
     SharedModule,
     CoreRoutingModule
   ],
@@ -40,7 +39,6 @@ export interface CoreAppState {
     ToolbarComponent
   ],
   providers: [
-    ReducerManager,
     AuthService,
     AuthGuard
   ]

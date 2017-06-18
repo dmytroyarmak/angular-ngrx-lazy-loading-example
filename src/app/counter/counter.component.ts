@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { DECREMENT, INCREMENT } from './counter.reducer';
+import { DecrementAction, IncrementAction } from './counter.reducer';
 import { CounterAppState } from './counter.module';
 
 @Component({
@@ -25,10 +25,10 @@ export class CounterComponent implements OnInit {
   }
 
   decrement() {
-    this.store.dispatch({ type: DECREMENT })
+    this.store.dispatch(new DecrementAction())
   }
 
   increment() {
-    this.store.dispatch({ type: INCREMENT });
+    this.store.dispatch(new IncrementAction());
   }
 }

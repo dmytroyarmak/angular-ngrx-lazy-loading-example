@@ -3,7 +3,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mapTo';
 
-import { DECREMENT, INCREMENT } from './counter.reducer';
+import { DECREMENT, DecrementAction, INCREMENT, IncrementAction } from './counter.reducer';
 
 @Injectable()
 export class CounterEffects {
@@ -13,13 +13,13 @@ export class CounterEffects {
 
   @Effect() invertIncrement$ = this.actions$
     .ofType(INCREMENT)
-    .filter(action => !action.payload || !action.payload.inverted)
+    .filter((action: IncrementAction) => !action.payload.inverted)
     .delay(1000)
-    .mapTo({ type: DECREMENT, payload: { inverted: true } });
+    .mapTo(new DecrementAction({ inverted: true}));
 
   @Effect() invertDecrement$ = this.actions$
     .ofType(DECREMENT)
-    .filter(action => !action.payload || !action.payload.inverted)
+    .filter((action: DecrementAction) => !action.payload.inverted)
     .delay(1000)
-    .mapTo({ type: INCREMENT, payload: { inverted: true } });
+    .mapTo(new IncrementAction({ inverted: true }));
 }

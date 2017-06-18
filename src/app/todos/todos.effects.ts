@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { ADD, ADD_SUCCESS } from './todos.reducer';
+import { ADD, AddAction, AddSuccessAction } from './todos.reducer';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/zip';
 import 'rxjs/add/observable/from';
@@ -25,21 +25,12 @@ export class TodosEffects {
   ) {}
 
   @Effect() sampleTodos$ = Observable.zip(
-    this.actions$.ofType(ADD).filter(action => !action.payload.title),
+    this.actions$.ofType(ADD).filter((action: AddAction) => !action.payload),
     Observable.from(SAMPLE_TODOS),
-    (_, sampleTodoTitle) => ({
-      type: ADD_SUCCESS,
-      payload: {
-        title: sampleTodoTitle,
-        completed: false
-      }
-    }));
+    (_, sampleTodoTitle) => new AddSuccessAction(sampleTodoTitle));
 
   @Effect() originalTodos$ = this.actions$
     .ofType(ADD)
-    .filter(action => action.payload.title)
-    .map(({ payload }) => ({
-      type: ADD_SUCCESS,
-      payload
-    }));
+    .filter((action: AddAction) => !!action.payload)
+    .map((action: AddAction) => new AddSuccessAction(action.payload));
 }

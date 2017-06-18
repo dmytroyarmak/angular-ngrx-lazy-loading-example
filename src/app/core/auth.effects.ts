@@ -4,7 +4,9 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mapTo';
 
-import { LOGIN, LOGIN_ERROR, LOGIN_SUCCESS, LOGOUT, LOGOUT_SUCCESS } from './auth.reducer';
+import {
+  LOGIN, LoginAction, LoginErrorAction, LoginSuccessAction, LOGOUT, LogoutSuccessAction
+} from './auth.reducer';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -17,23 +19,17 @@ export class AuthEffects {
 
   @Effect() login$ = this.actions$
     .ofType(LOGIN)
-    .switchMap((action) => this.authService.logIn(action.payload))
+    .switchMap((action: LoginAction) => this.authService.logIn(action.payload))
     .do(() => {
       this.router.navigate(['/']);
     })
-    .map(({ username }) => ({
-      type: LOGIN_SUCCESS,
-      payload: username
-    }))
-    .catch((error) => Observable.of({
-      type: LOGIN_ERROR,
-      payload: error
-    }));
+    .map(({ username }) => new LoginSuccessAction(username))
+    .catch((error) => Observable.of(new LoginErrorAction(error)));
 
   @Effect() logout$ = this.actions$
     .ofType(LOGOUT)
     .do(() => {
       this.router.navigate(['/login']);
     })
-    .mapTo({ type: LOGOUT_SUCCESS });
+    .map(_ => new LogoutSuccessAction());
 }

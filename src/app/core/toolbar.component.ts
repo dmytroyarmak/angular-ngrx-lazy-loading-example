@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { LOGOUT } from './auth.reducer';
+import { LogoutAction } from './auth.reducer';
 import { CoreAppState } from './core.module';
 
 @Component({
@@ -35,6 +35,6 @@ export class ToolbarComponent implements OnInit {
   }
 
   onClickLogOut() {
-    this.store.dispatch({ type: LOGOUT });
+    this.store.dispatch(new LogoutAction());
   }
 }

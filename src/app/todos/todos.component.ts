@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { ADD, TOGGLE_COMPLETION, REMOVE, TodosState } from './todos.reducer';
+import { AddAction, RemoveAction, TodosState, ToggleCompletionAction } from './todos.reducer';
 import { TodosAppState } from './todos.module';
 
 @Component({
@@ -42,27 +42,15 @@ export class TodosComponent implements OnInit {
   }
 
   addTodo() {
-    this.store.dispatch({
-      type: ADD,
-      payload: {
-        title: this.newTodoTitle,
-        completed: false
-      }
-    });
+    this.store.dispatch(new AddAction(this.newTodoTitle));
     this.newTodoTitle = '';
   }
 
   toggleCompletion(todo) {
-    this.store.dispatch({
-      type: TOGGLE_COMPLETION,
-      payload: todo
-    })
+    this.store.dispatch(new ToggleCompletionAction(todo));
   }
 
   remove(todo) {
-    this.store.dispatch({
-      type: REMOVE,
-      payload: todo
-    })
+    this.store.dispatch(new RemoveAction(todo));
   }
 }

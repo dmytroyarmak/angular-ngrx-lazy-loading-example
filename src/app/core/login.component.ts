@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LOGIN } from './auth.reducer';
+import { LoginAction } from './auth.reducer';
 import { CoreAppState } from './core.module';
 
 @Component({
@@ -47,12 +47,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.store.dispatch({
-      type: LOGIN,
-      payload: {
-        username: this.username,
-        password: this.password
-      }
-    });
+    this.store.dispatch(new LoginAction({
+      username: this.username,
+      password: this.password
+    }));
   }
 }

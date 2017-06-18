@@ -8,7 +8,7 @@ import { RootComponent } from './core/root.component';
 @NgModule({
   imports: [
     BrowserModule,
-    CoreModule
+    CoreModule,
   ],
   bootstrap: [
     RootComponent
