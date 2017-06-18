@@ -6,7 +6,7 @@ import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class AuthService {
-  logIn(username, password) {
+  logIn({ username, password }) {
     if (username === 'admin' && password === 'admin') {
       return Observable.of({ username }).delay(500);
     } else {

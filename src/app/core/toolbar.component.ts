@@ -36,6 +36,5 @@ export class ToolbarComponent implements OnInit {
 
   onClickLogOut() {
     this.store.dispatch({ type: LOGOUT });
-    this.router.navigate(['/login']);
   }
 }

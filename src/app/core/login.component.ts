@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthService } from './auth.service';
-import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from './auth.reducer';
+import { LOGIN } from './auth.reducer';
 import { CoreAppState } from './core.module';
 
 @Component({
@@ -37,9 +35,7 @@ export class LoginComponent implements OnInit {
   password = '';
 
   constructor(
-    private authService: AuthService,
-    private store: Store<CoreAppState>,
-    private router: Router
+    private store: Store<CoreAppState>
   ) { }
 
   ngOnInit() {
@@ -48,20 +44,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.store.dispatch({ type: LOGIN });
-    this.authService
-      .logIn(this.username, this.password)
-      .subscribe(({ username }) => {
-        this.store.dispatch({
-          type: LOGIN_SUCCESS,
-          payload: username
-        });
-        this.router.navigate(['/']);
-      }, (error) => {
-        this.store.dispatch({
-          type: LOGIN_ERROR,
-          payload: error
-        });
-      });
+    this.store.dispatch({
+      type: LOGIN,
+      payload: {
+        username: this.username,
+        password: this.password
+      }
+    });
   }
 }
