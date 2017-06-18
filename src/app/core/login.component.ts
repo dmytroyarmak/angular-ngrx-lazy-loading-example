@@ -6,7 +6,7 @@ import { CoreAppState } from './core.module';
 @Component({
   selector: 'dy-login',
   template: `
-    <md-card>
+    <md-card *ngIf="isNotLoggedIn$ | async">
       <md-card-subtitle>{{ error$ | async }}</md-card-subtitle>
       <md-card-content>
         <div *ngIf="isInProgress$ | async; else loginForm">
@@ -31,6 +31,8 @@ import { CoreAppState } from './core.module';
 export class LoginComponent implements OnInit {
   error$;
   isInProgress$;
+  isNotLoggedIn$;
+
   username = '';
   password = '';
 
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.error$ = this.store.select(state => state.core.auth.error);
     this.isInProgress$ = this.store.select(state => state.core.auth.isInProgress);
+    this.isNotLoggedIn$ = this.store.select(state => !state.core.auth.isLoggedIn);
   }
 
   onSubmit() {
