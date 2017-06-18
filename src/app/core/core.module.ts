@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { SharedModule } from '../shared/shared.module';
 import { CoreRoutingModule } from './core-routing.module';
@@ -24,6 +25,7 @@ export interface CoreAppState {
     StoreModule.provideStore({
       core: coreReducer
     }),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     SharedModule,
     CoreRoutingModule
   ],
